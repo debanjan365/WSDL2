@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: credit-card-management
+
+adfs:
+  url: https://your-adfs-url/adfs
+  client-id: your-client-id
+  client-secret: your-client-secret
+  scope: openid
+  username: your-username
+  password: your-password
+
+cxf:
+  wsdl:
+    creditCard: classpath:wsdl/creditcard.wsdl
