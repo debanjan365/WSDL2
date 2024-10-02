@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:tns="http://example.com/creditcard"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             name="CreditCardService"
+             targetNamespace="http://example.com/creditcard"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <types>
+        <xsd:schema targetNamespace="http://example.com/creditcard">
+            <xsd:element name="CreditCard">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="cardNumber" type="xsd:string"/>
+                        <xsd:element name="expirationDate" type="xsd:string"/>
+                        <xsd:element name="cvv" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Response">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="message" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </types>
+    
+    <message name="addCreditCardRequest">
+        <part name="creditCard" element="tns:CreditCard"/>
+    </message>
+    <message name="addCreditCardResponse">
+        <part name="response" element="tns:Response"/>
+    </message>
+
+    <portType name="CreditCardPortType">
+        <operation name="addCreditCard">
+            <input message="tns:addCreditCardRequest"/>
+            <output message="tns:addCreditCardResponse"/>
+        </operation>
+    </portType>
+
+    <binding name="CreditCardBinding" type="tns:CreditCardPortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="addCreditCard">
+            <soap:operation soapAction="http://example.com/creditcard/addCreditCard"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="CreditCardService">
+        <port name="CreditCardPort" binding="tns:CreditCardBinding">
+            <soap:address location="http://localhost:8080/services/creditcard"/>
+        </port>
+    </service>
+</definitions>
