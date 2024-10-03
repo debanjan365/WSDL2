@@ -2,50 +2,78 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>com.example</groupId>
-    <artifactId>credit-card-management</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>photon-boot-project</artifactId>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
+    <name>photon-boot-starter-project</name>
+    <description>Spring Boot project using Photon Boot Starters</description>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.12</version> <!-- Update to the Spring Boot version you're using -->
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
     <properties>
-        <java.version>17</java.version>
-        <spring-boot.version>2.7.4</spring-boot.version>
-        <cxf.version>3.4.5</cxf.version>
+        <java.version>17</java.version> <!-- Update to the Java version you're using -->
+        <spring-boot.version>2.7.12</spring-boot.version>
+        <photon.version>1.0.0</photon.version> <!-- Update to the actual Photon version -->
     </properties>
 
     <dependencies>
-        <!-- Spring Boot Starter -->
+        <!-- Photon Boot Starter -->
+        <dependency>
+            <groupId>com.photonframework</groupId>
+            <artifactId>photon-boot-starter</artifactId>
+            <version>${photon.version}</version>
+        </dependency>
+
+        <!-- Photon Boot Starter WebMVC -->
+        <dependency>
+            <groupId>com.photonframework</groupId>
+            <artifactId>photon-boot-starter-webmvc</artifactId>
+            <version>${photon.version}</version>
+        </dependency>
+
+        <!-- Photon Boot Starter WebFlux -->
+        <dependency>
+            <groupId>com.photonframework</groupId>
+            <artifactId>photon-boot-starter-webflux</artifactId>
+            <version>${photon.version}</version>
+        </dependency>
+
+        <!-- Photon Boot Starter ADFS Client -->
+        <dependency>
+            <groupId>com.photonframework</groupId>
+            <artifactId>photon-boot-starter-adfs-client</artifactId>
+            <version>${photon.version}</version>
+        </dependency>
+
+        <!-- Photon Boot Starter SCS -->
+        <dependency>
+            <groupId>com.photonframework</groupId>
+            <artifactId>photon-boot-starter-scs</artifactId>
+            <version>${photon.version}</version>
+        </dependency>
+
+        <!-- Spring Boot Starter Dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
-        </dependency>
-
-        <!-- Apache CXF for SOAP -->
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
-            <version>${cxf.version}</version>
-        </dependency>
-
-        <!-- ADFS Client -->
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>photon-boot-starter-adfs-client</artifactId>
-            <version>1.0.0</version> <!-- Use your actual version -->
-        </dependency>
-
-        <!-- Other Dependencies -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
         <!-- Test Dependencies -->
@@ -62,33 +90,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
-            <!-- CXF Code Generation Plugin -->
-            <plugin>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-codegen-plugin</artifactId>
-                <version>${cxf.version}</version>
-                <executions>
-                    <execution>
-                        <id>generate-sources</id>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <wsdlOptions>
-                                <wsdlOption>
-                                    <wsdl>${project.basedir}/src/main/resources/wsdl/creditcard.wsdl</wsdl>
-                                    <extraargs>
-                                        <extraarg>-d</extraarg>
-                                        <extraarg>${project.build.directory}/generated-sources/cxf</extraarg>
-                                    </extraargs>
-                                </wsdlOption>
-                            </wsdlOptions>
-                        </configuration>
-                        <goals>
-                            <goal>wsdl2java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
+
 </project>
