@@ -1,0 +1,55 @@
+package com.example.demo.config;
+
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.io.IOException;
+
+@Configuration
+public class FilterConfig {
+
+    @Bean
+    public FilterRegistrationBean<Filter> delegatingFilterRegistrationBean() {
+        FilterRegistrationBean<Filter> registrationBean = new FilterRegistrationBean<>();
+        
+        // Create an anonymous Filter implementation
+        Filter delegatingFilter = new Filter() {
+            @Override
+            public void init(FilterConfig filterConfig) throws ServletException {
+                // Initialization logic (if needed)
+            }
+
+            @Override
+            public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+                    throws IOException, ServletException {
+                // Custom filter logic before passing request to next filter or servlet
+                System.out.println("Anonymous DelegatingFilter is processing the request.");
+
+                // Proceed with the next filter or the request
+                chain.doFilter(request, response);
+
+                // Custom logic after the request is processed
+                System.out.println("Anonymous DelegatingFilter has processed the response.");
+            }
+
+            @Override
+            public void destroy() {
+                // Cleanup logic (if needed)
+            }
+        };
+        
+        // Set the filter and URL patterns
+        registrationBean.setFilter(delegatingFilter);
+        registrationBean.addUrlPatterns("/api/*");  // Define the URL patterns to apply the filter
+        registrationBean.setOrder(1);  // Set the filter order if there are multiple filters
+        
+        return registrationBean;
+    }
+}
