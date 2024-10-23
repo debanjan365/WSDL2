@@ -47,6 +47,7 @@ public class FilterConfig {
         
         // Set the filter and URL patterns
         registrationBean.setFilter(delegatingFilter);
+        registrationbean.setservletRegistrationBeans(cxfServletRegistration());
         registrationBean.addUrlPatterns("/api/*");  // Define the URL patterns to apply the filter
         registrationBean.setOrder(1);  // Set the filter order if there are multiple filters
         
